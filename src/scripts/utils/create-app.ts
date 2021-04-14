@@ -36,6 +36,7 @@ export default async ({
 
   // Use the http or https modules to create the server.
   const server = await createServer({ app, isHttps });
+  const { createProxyMiddleware } = require('http-proxy-middleware');
 
   // Start listening once webpack has finished.
   let clientFinished = false;
@@ -58,7 +59,9 @@ export default async ({
   });
 
   // Start listening.
+  app.use('/api', createProxyMiddleware({ target: process.env.LOCALSITE, changeOrigin: true }));
   server.listen(port, () => {
+    console.log('\x1b[36m','BT Modified 2');
     console.log(
       `\n\nSERVER STARTED -- Listening @ ${url}\n  - mode: ${mode}\n  - target: ${target}\n  - public-path: ${publicPath}\n\n`
     );
