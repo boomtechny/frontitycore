@@ -1,6 +1,6 @@
 "use strict";
-exports.__esModule = true;
-var targets = {
+Object.defineProperty(exports, "__esModule", { value: true });
+const targets = {
     // Browsers with <script type="module"></script> support. This is the list:
     // "edge": "16",
     // "firefox": "60",
@@ -28,15 +28,14 @@ var targets = {
             "opera >= 36",
             "safari >= 10",
             "samsung >= 5",
-        ]
+        ],
     },
     // Node version used by AWS Lambda.
-    server: { node: "8.10" }
+    server: { node: "8.10" },
 };
-exports["default"] = (function (_a) {
-    var mode = _a.mode;
-    var getConfig = function (target) {
-        var presets = [
+exports.default = ({ mode }) => {
+    const getConfig = (target) => {
+        const presets = [
             // Instead of using a TS transpiler, this removes the typescript code.
             "@babel/preset-typescript",
             [
@@ -45,14 +44,14 @@ exports["default"] = (function (_a) {
                     targets: targets[target],
                     useBuiltIns: target === "es5" && "entry",
                     corejs: target === "es5" && "3",
-                    modules: false
+                    modules: false,
                 },
             ],
             "@babel/preset-react",
             // Babel plugin for Emotion CSS property and other goodness.
             "@emotion/babel-preset-css-prop",
         ];
-        var plugins = [
+        const plugins = [
             //
             "babel-plugin-frontity",
             // Support for babel macros. See: https://community.frontity.org/t/tailwindcss-with-babel-macro-plugin-and-css-in-js/1040
@@ -71,19 +70,19 @@ exports["default"] = (function (_a) {
             [
                 "babel-plugin-transform-inline-environment-variables",
                 {
-                    include: ["CWD"]
+                    include: ["CWD"],
                 },
             ],
         ];
         return {
             compact: true,
-            presets: presets,
-            plugins: plugins
+            presets,
+            plugins,
         };
     };
     return {
         module: getConfig("module"),
         es5: getConfig("es5"),
-        server: getConfig("server")
+        server: getConfig("server"),
     };
-});
+};

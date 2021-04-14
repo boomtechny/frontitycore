@@ -1,6 +1,5 @@
 "use strict";
-exports.__esModule = true;
-exports["default"] = (function (_a) {
-    var target = _a.target;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = ({ target }) => {
     return target === "server" ? "node" : "web";
-});
+};

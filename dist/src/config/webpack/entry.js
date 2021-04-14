@@ -1,20 +1,18 @@
 "use strict";
-exports.__esModule = true;
-var path_1 = require("path");
+Object.defineProperty(exports, "__esModule", { value: true });
+const path_1 = require("path");
 // Get the root path of the directory where the script was started.
-var rootPath = process.cwd();
-exports["default"] = (function (_a) {
-    var target = _a.target, mode = _a.mode, entryPoints = _a.entryPoints;
-    var config = {};
+const rootPath = process.cwd();
+exports.default = ({ target, mode, entryPoints, }) => {
+    let config = {};
     if (target === "server") {
-        var path = entryPoints.find(function (bundle) { return bundle.name === "server"; }).path;
+        const { path } = entryPoints.find((bundle) => bundle.name === "server");
         config = path_1.resolve(rootPath, path);
     }
     else {
         entryPoints
-            .filter(function (bundle) { return bundle.name !== "server"; })
-            .forEach(function (_a) {
-            var name = _a.name, path = _a.path;
+            .filter((bundle) => bundle.name !== "server")
+            .forEach(({ name, path }) => {
             config[name] = [];
             // This is needed for HMR in the client but only when we are in development.
             if (mode === "development")
@@ -26,4 +24,4 @@ exports["default"] = (function (_a) {
         });
     }
     return config;
-});
+};
