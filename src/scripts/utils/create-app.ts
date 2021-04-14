@@ -61,6 +61,8 @@ export default async ({
   // Start listening.
   app.use('/api', createProxyMiddleware({ target: process.env.LOCALSITE, changeOrigin: true }));
   server.listen(port, () => {
+    console.log('btread');
+
     console.log('\x1b[36m','BT Modified 2');
     console.log(
       `\n\nSERVER STARTED -- Listening @ ${url}\n  - mode: ${mode}\n  - target: ${target}\n  - public-path: ${publicPath}\n\n`

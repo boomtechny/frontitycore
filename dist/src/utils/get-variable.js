@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 /**
  * Create a valid variable name out of a package name and a mode.
  *
@@ -9,11 +9,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @returns A valid variable name that can be used to create the entry point
  * files.
  */
-exports.default = (pkg, mode) => {
+exports["default"] = (function (pkg, mode) {
     return (pkg
         .replace(/^@/, "")
         .replace(/^(\d)/, "_$1")
         .replace(/-/g, "_")
         .replace(/\//g, "__")
-        .replace(/\./g, "___") + `_${mode}`);
-};
+        .replace(/\./g, "___") + ("_" + mode));
+});

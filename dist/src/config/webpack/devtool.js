@@ -1,3 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = ({ mode }) => mode === "development" ? "eval-source-map" : false;
+exports.__esModule = true;
+exports["default"] = (function (_a) {
+    var mode = _a.mode;
+    return mode === "development" ? "eval-source-map" : false;
+});

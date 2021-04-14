@@ -18,7 +18,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.dev = exports.build = exports.serve = void 0;
 /**
  * The serve function that dynamically imports the Frontity serve command.
@@ -26,7 +26,10 @@ exports.dev = exports.build = exports.serve = void 0;
  * @param args - Defined in {@link ServeOptions}.
  * @returns The imported module.
  */
-exports.serve = (args) => Promise.resolve().then(() => __importStar(require("./serve"))).then((mod) => mod.default(args));
+var serve = function (args) {
+    return Promise.resolve().then(function () { return __importStar(require("./serve")); }).then(function (mod) { return mod["default"](args); });
+};
+exports.serve = serve;
 /**
  * The build function that dynamically imports the Frontity build command.
  *
@@ -34,7 +37,10 @@ exports.serve = (args) => Promise.resolve().then(() => __importStar(require("./s
  *
  * @returns The imported module.
  */
-exports.build = (args) => Promise.resolve().then(() => __importStar(require("./build"))).then((mod) => mod.default(args));
+var build = function (args) {
+    return Promise.resolve().then(function () { return __importStar(require("./build")); }).then(function (mod) { return mod["default"](args); });
+};
+exports.build = build;
 /**
  * The dev function that dynamically imports the Frontity dev command.
  *
@@ -42,4 +48,7 @@ exports.build = (args) => Promise.resolve().then(() => __importStar(require("./b
  *
  * @returns The imported module.
  */
-exports.dev = (args) => Promise.resolve().then(() => __importStar(require("./dev"))).then((mod) => mod.default(args));
+var dev = function (args) {
+    return Promise.resolve().then(function () { return __importStar(require("./dev")); }).then(function (mod) { return mod["default"](args); });
+};
+exports.dev = dev;

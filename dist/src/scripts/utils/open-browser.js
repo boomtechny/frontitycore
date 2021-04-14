@@ -5,31 +5,36 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file: https://github.com/facebook/create-react-app/blob/a4fa63fcc1fb97fa50778b7c1a73a01da3a3e022/LICENSE
  */
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.openBrowserTab = void 0;
-const chalk_1 = __importDefault(require("chalk"));
-const child_process_1 = require("child_process");
-const cross_spawn_1 = __importDefault(require("cross-spawn"));
-const open_1 = __importDefault(require("open"));
+var chalk_1 = __importDefault(require("chalk"));
+var child_process_1 = require("child_process");
+var cross_spawn_1 = __importDefault(require("cross-spawn"));
+var open_1 = __importDefault(require("open"));
 // https://github.com/sindresorhus/open#app
-const OSX_CHROME = "google chrome";
-const Actions = Object.freeze({
+var OSX_CHROME = "google chrome";
+var Actions = Object.freeze({
     NONE: 0,
     BROWSER: 1,
-    SCRIPT: 2,
+    SCRIPT: 2
 });
 function getBrowserEnv() {
     // Attempt to honor this environment variable.
     // It is specific to the operating system.
     // See https://github.com/sindresorhus/open#app for documentation.
-    const value = process.env.BROWSER;
-    const args = process.env.BROWSER_ARGS
+    var value = process.env.BROWSER;
+    var args = process.env.BROWSER_ARGS
         ? process.env.BROWSER_ARGS.split(" ")
         : [];
-    let action;
+    var action;
     if (!value) {
         // Default.
         action = Actions.BROWSER;
@@ -43,18 +48,18 @@ function getBrowserEnv() {
     else {
         action = Actions.BROWSER;
     }
-    return { action, value, args };
+    return { action: action, value: value, args: args };
 }
 function executeNodeScript(scriptPath, url) {
-    const extraArgs = process.argv.slice(2);
-    const child = cross_spawn_1.default("node", [scriptPath, ...extraArgs, url], {
-        stdio: "inherit",
+    var extraArgs = process.argv.slice(2);
+    var child = cross_spawn_1["default"]("node", __spreadArray(__spreadArray([scriptPath], extraArgs), [url]), {
+        stdio: "inherit"
     });
-    child.on("close", (code) => {
+    child.on("close", function (code) {
         if (code !== 0) {
             console.log();
-            console.log(chalk_1.default.red("The script specified as BROWSER environment variable failed."));
-            console.log(chalk_1.default.cyan(scriptPath) + " exited with code " + code + ".");
+            console.log(chalk_1["default"].red("The script specified as BROWSER environment variable failed."));
+            console.log(chalk_1["default"].cyan(scriptPath) + " exited with code " + code + ".");
             console.log();
             return;
         }
@@ -66,11 +71,11 @@ function startBrowserProcess(browser, url, args) {
     // requested a different browser, we can try opening
     // Chrome with AppleScript. This lets us reuse an
     // existing tab when possible instead of creating a new one.
-    const shouldTryOpenChromiumWithAppleScript = process.platform === "darwin" &&
+    var shouldTryOpenChromiumWithAppleScript = process.platform === "darwin" &&
         (typeof browser !== "string" || browser === OSX_CHROME);
     if (shouldTryOpenChromiumWithAppleScript) {
         // Will use the first open browser found from list
-        const supportedChromiumBrowsers = [
+        var supportedChromiumBrowsers = [
             "Google Chrome Canary",
             "Google Chrome",
             "Microsoft Edge",
@@ -78,7 +83,8 @@ function startBrowserProcess(browser, url, args) {
             "Vivaldi",
             "Chromium",
         ];
-        for (const chromiumBrowser of supportedChromiumBrowsers) {
+        for (var _i = 0, supportedChromiumBrowsers_1 = supportedChromiumBrowsers; _i < supportedChromiumBrowsers_1.length; _i++) {
+            var chromiumBrowser = supportedChromiumBrowsers_1[_i];
             try {
                 // Try our best to reuse existing tab
                 // on OSX Chromium-based browser with AppleScript
@@ -89,7 +95,7 @@ function startBrowserProcess(browser, url, args) {
                     chromiumBrowser +
                     '"', {
                     cwd: __dirname,
-                    stdio: "ignore",
+                    stdio: "ignore"
                 });
                 return true;
             }
@@ -112,8 +118,8 @@ function startBrowserProcess(browser, url, args) {
     // Fallback to open
     // (It will always open new tab)
     try {
-        const options = { app: browser, wait: false, url: true };
-        open_1.default(url, options).catch(() => {
+        var options = { app: browser, wait: false, url: true };
+        open_1["default"](url, options)["catch"](function () {
             // Prevent `unhandledRejection` error.
         });
         return true;
@@ -127,7 +133,7 @@ function startBrowserProcess(browser, url, args) {
  * true if it opened a browser or ran a node.js script, otherwise false.
  */
 function openBrowserTab(url) {
-    const { action, value, args } = getBrowserEnv();
+    var _a = getBrowserEnv(), action = _a.action, value = _a.value, args = _a.args;
     switch (action) {
         case Actions.NONE:
             // Special case: BROWSER="none" will prevent opening completely.

@@ -29,6 +29,7 @@ const serve = async ({ isHttps, port }: ServeOptions): Promise<void> => {
   const app = require(appDir).default;
   const server = await createServer({ app, isHttps });
   server.listen(port);
+  console.log('btread');
   console.log(
     `\n\nSERVER STARTED -- Listening @ ${
       isHttps ? "https" : "http"

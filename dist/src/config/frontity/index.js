@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = () => ({
-    outDir: "build",
-});
+exports.__esModule = true;
+exports["default"] = (function () { return ({
+    outDir: "build"
+}); });

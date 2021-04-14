@@ -1,8 +1,8 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const path_1 = require("path");
-const rootPath = process.cwd();
-exports.default = () => ({
+exports.__esModule = true;
+var path_1 = require("path");
+var rootPath = process.cwd();
+exports["default"] = (function () { return ({
     // Automatically resolve extensions for js, jsx, ts and tsx files.
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     // Alias the build folder to get access to it directly, without relying on were
@@ -12,6 +12,6 @@ exports.default = () => ({
         // Force ramda to be the esModule version to support tree-shaking.
         "ramda/src": "ramda/es",
         // Avoid dynamic imports with Koa require.
-        "any-promise": "promise-monofill",
-    },
-});
+        "any-promise": "promise-monofill"
+    }
+}); });
