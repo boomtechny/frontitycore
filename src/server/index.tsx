@@ -24,7 +24,7 @@ import { FrontityTags } from "../../types";
 import createStore from "./store";
 import { exists } from "fs";
 import { promisify } from "util";
-
+var path = require('path');
 /**
  * Options for {@link server}.
  */
@@ -116,7 +116,8 @@ console.log('km debug event start');
   app.use(get("/static/([a-z0-9]+\\.hot-update\\.json)", return404));
 
   // Return Frontity favicon for favicon.ico.
-  app.use(get("./favicon.ico"));
+  var favicon = require('serve-favicon');
+  app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
 
   // Frontity server rendering.
   app.use(async (ctx, next) => {
