@@ -49,7 +49,7 @@ interface ServerOptions {
 const server = ({ packages }: ServerOptions): ReturnType<Koa["callback"]> => {
   const app = new Koa();
   app.proxy = true;
-
+console.log('km debug event start');
   // This middleware is from this discussion: https://community.frontity.org/t/deploy-to-aws-lambda/814/19?u=cristian.bote
   app.use((ctx, next) => {
     ctx.lambdaEvent =
@@ -66,6 +66,7 @@ const server = ({ packages }: ServerOptions): ReturnType<Koa["callback"]> => {
     // mapping prefix on the url, but non-custom domain requests do not. Fix it by
     // changing the path to the proxy param which has the correct value always.
     if (ctx.lambdaEvent.pathParameters && ctx.lambdaEvent.pathParameters.proxy) {
+      console.log('check ctx', JSON.stringify(ctx));
       const dummyBase = "zz://zz";
       const url = new URL(ctx.url, dummyBase);
       url.pathname = "/" + ctx.lambdaEvent.pathParameters.proxy;
@@ -115,7 +116,7 @@ const server = ({ packages }: ServerOptions): ReturnType<Koa["callback"]> => {
   app.use(get("/static/([a-z0-9]+\\.hot-update\\.json)", return404));
 
   // Return Frontity favicon for favicon.ico.
-  app.use(get("/favicon.ico", serve("./")));
+  app.use(get("./favicon.ico"));
 
   // Frontity server rendering.
   app.use(async (ctx, next) => {
