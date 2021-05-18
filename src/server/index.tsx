@@ -117,7 +117,7 @@ console.log('km debug event start');
 
   // Return Frontity favicon for favicon.ico.
   var favicon = require('koa-favicon');
-  app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
+  app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
   // Frontity server rendering.
   app.use(async (ctx, next) => {
