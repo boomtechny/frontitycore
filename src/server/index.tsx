@@ -116,7 +116,7 @@ console.log('km debug event start');
   app.use(get("/static/([a-z0-9]+\\.hot-update\\.json)", return404));
 
   // Return Frontity favicon for favicon.ico.
-  app.use(get("/favicon.ico", serve("./")));
+  //app.use(get("/favicon.ico", serve("./")));
 
   // Frontity server rendering.
   app.use(async (ctx, next) => {
