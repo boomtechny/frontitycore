@@ -48,7 +48,7 @@ exports.default = ({ target, babel, mode, }) => ({
             ],
         },
         {
-            test: /\.css$/,
+            test: /\.(css|html)$/,
             use: "raw-loader",
         },
         {

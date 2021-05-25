@@ -59,7 +59,7 @@ export default ({
       ],
     },
     {
-      test: /\.css$/,
+      test: /\.(css|html)$/,
       use: "raw-loader",
     },
     {
