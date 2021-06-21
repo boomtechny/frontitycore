@@ -223,7 +223,9 @@ console.log('km debug event start');
 
     // Write the template to body.
     ctx.body = template({ html, frontity, head });
+    if(process.env.FRONTITYENV=="production"){
     gutencache(ctx);
+    }
     next();
   });
 

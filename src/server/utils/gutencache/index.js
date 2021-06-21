@@ -1,48 +1,65 @@
-
-var aws = require('aws-sdk');
+var aws = require("aws-sdk");
 
 var s3 = new aws.S3({
-	'accessKeyId': process.env.AWSS3KEY,
-	'secretAccessKey': process.env.AWSS3SECRET,
-	'region': process.env.AWSS3REGION,
-	'signatureVersion': 'v4'
+  accessKeyId: process.env.AWSS3KEY,
+  secretAccessKey: process.env.AWSS3SECRET,
+  region: process.env.AWSS3REGION,
+  signatureVersion: "v4",
 });
 
 const gutencache = (ctx) =>{
-console.log('check server ctx', ctx.body);
 
-    return;
-};
-export default gutencache;
-
-const s3set = (key, val, ttl, cb)=>{
-	console.log('Setting', key, 'in s3 cache');
-	val.expires_at = Date.now() + ttl;
-	s3.putObject({
-		'ACL': 'private',
-		'Bucket': process.env.AWSS3BUCKET,
-		'Key': key,
-		'Body': json.stringify(val)
-	}, cb);
-}
-/*
-module.exports.s3set = function(key, val, ttl, cb) {
-	console.log('Setting', key, 'in s3 cache');
-	val.expires_at = _.now() + ttl;
-	s3.putObject({
-		'ACL': 'private',
-		'Bucket': 'ndr-frontity-cache',
-		'Key': key,
-		'Body': json.stringify(val)
-	}, cb);
-};
-*/
-/*exports.handler = async (event) => {
-    // TODO implement
-    const response = {
-        statusCode: 200,
-        body: JSON.stringify('Hello from Lambda!'),
+    if (ctx.body) {
+        var statusCode = ctx.status;
+        console.log("check status code", statusCode);
+        if (statusCode == 200) {
+          var url = ctx.url;
+          var path = ctx.path;
+          var querystring = ctx.querystring;
+          var key = path;
+          console.log('check path', path);
+          console.log('check url', key);
+          console.log('check querystring', querystring);
+         if (key=="/") {
+            key += "index.cache";
+          }
+          var body = ctx.body;
+         var contentType = ctx.response.header['content-type'];
+          
+          var s3response = {
+            'body': Buffer.from(body).toString("base64"),
+            'headers': {
+              "content-type": contentType,
+            },
+            'statusCode': statusCode,
+            isBase64Encoded: true,
+          };
+         // console.log('all set');
+    
+          s3set(key, s3response, 1000 * 60 * 60);
+        }
+      }
+    
+      return;
     };
-    return response;
-};
-*/
+    export default gutencache;
+    
+    const s3set = (key, val, ttl)=>{
+        console.log('Setting', key, 'in s3 cache');
+        val.expires_at = Date.now() + ttl;
+        s3.putObject({
+            'ACL': 'private',
+            'Bucket': process.env.AWSS3BUCKET,
+            'Key': key,
+            'Body': JSON.stringify(val)
+        }, function(err, data){
+            if(err){
+                console.log('err', err);
+            }
+            
+            return;
+    
+        });
+    
+    }
+    
