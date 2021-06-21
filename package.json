@@ -29,6 +29,7 @@
     "@loadable/component": "^5.10.1",
     "@loadable/server": "^5.9.0",
     "@loadable/webpack-plugin": "^5.7.1",
+    "aws-sdk": "^2.932.0",
     "aws-serverless-express": "^3.4.0",
     "babel-loader": "^8.0.5",
     "babel-plugin-frontity": "^1.0.2",

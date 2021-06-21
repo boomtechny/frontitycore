@@ -24,7 +24,7 @@ import { FrontityTags } from "../../types";
 import createStore from "./store";
 import { exists } from "fs";
 import { promisify } from "util";
-
+import gutencache from "./utils/gutencache";
 /**
  * Options for {@link server}.
  */
@@ -223,6 +223,7 @@ console.log('km debug event start');
 
     // Write the template to body.
     ctx.body = template({ html, frontity, head });
+    gutencache(ctx);
     next();
   });
 
