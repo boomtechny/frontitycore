@@ -13,9 +13,15 @@ const gutencache = (ctx) =>{
         var statusCode = ctx.status;
         console.log("check status code", statusCode);
         if (statusCode == 200) {
-          var url = ctx.url;
+         
+		  var origin = ctx.origin;
+		  var url = ctx.href.replace(origin,'');
+         
           var path = ctx.path;
           var querystring = ctx.querystring;
+		  if(querystring!=""){
+			  url = url.replace(querystring);
+		  }
           var key = url;
           console.log('check url', url);
           console.log('check path', path);
