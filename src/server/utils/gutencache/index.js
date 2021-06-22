@@ -40,7 +40,7 @@ const gutencache = (ctx) =>{
             },
             'statusCode': statusCode,
             isBase64Encoded: true,
-            'length':bufBody.length
+            'length':bufLength
           };
          // console.log('all set');
     
