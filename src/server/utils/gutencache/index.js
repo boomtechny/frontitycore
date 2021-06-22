@@ -16,27 +16,36 @@ const gutencache = (ctx) =>{
           var url = ctx.url;
           var path = ctx.path;
           var querystring = ctx.querystring;
-          var key = path;
+          var key = url;
+          console.log('check url', url);
           console.log('check path', path);
-          console.log('check url', key);
+          console.log('check key', key);
           console.log('check querystring', querystring);
          if (key=="/") {
             key += "index.cache";
           }
           var body = ctx.body;
-         var contentType = ctx.response.header['content-type'];
-          
+       
+          var bufBody = Buffer.from(body);
+          var bufLength = bufBody.length;
+          if(bufLength < 1048576){
+            
+        
+        var contentType = ctx.response.header['content-type'];
+          var bufBodyString = bufBody.toString("base64");
           var s3response = {
-            'body': Buffer.from(body).toString("base64"),
+            'body': bufBodyString,
             'headers': {
               "content-type": contentType,
             },
             'statusCode': statusCode,
             isBase64Encoded: true,
+            'length':bufBody.length
           };
          // console.log('all set');
     
           s3set(key, s3response, 1000 * 60 * 60);
+        }
         }
       }
     
