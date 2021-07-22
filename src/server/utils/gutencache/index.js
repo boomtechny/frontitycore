@@ -34,8 +34,9 @@ const gutencache = (ctx) =>{
        
           var bufBody = Buffer.from(body);
           var bufLength = bufBody.length;
+          console.log('check buf lenght', bufLength);
           if(bufLength < 1048576){
-            
+            console.log('check buf length OK', bufLength);
         
         var contentType = ctx.response.header['content-type'];
           var bufBodyString = bufBody.toString("base64");

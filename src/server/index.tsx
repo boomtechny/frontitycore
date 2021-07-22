@@ -25,6 +25,8 @@ import createStore from "./store";
 import { exists } from "fs";
 import { promisify } from "util";
 import gutencache from "./utils/gutencache";
+import redirection from "./utils/redirection";
+
 /**
  * Options for {@link server}.
  */
@@ -76,6 +78,7 @@ console.log('km debug event start');
   });
   // Serve static files.
   app.use(async (ctx, next) => {
+    redirection(ctx);
     const moduleStats = await getStats({ target: "module" });
     const es5Stats = await getStats({ target: "es5" });
     const stats = moduleStats || es5Stats;
